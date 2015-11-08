@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Product {
-	public Long ean;
-	public String name;
-	public String description;
+	public Long ean;  // product id.
+	public String name; // product name
+	public String description;  // description
 	
 	private static Set<Product> products = new HashSet<>();
 	
@@ -27,4 +27,35 @@ public class Product {
 	public String toString() {
 		return String.format("%s - %s :: %s",  ean, name, description);
 	}
-}
+
+  	public static Set<Product> findAll() {
+  		return new HashSet<Product>(products);
+  	}
+  	public static Product findByEan(Long ean) {
+  		for (Product candidate : products) {
+  			 if(candidate.ean.equals(ean)) {
+  				 return candidate;
+  			 }
+   		}
+  		return null;
+  	}
+  	
+  	public static Set<Product> findByName(String term) {
+  		final Set<Product> results = new HashSet<Product>();
+  		for (Product candidate : products) {
+  				if(candidate.name.toLowerCase().contains(term.toLowerCase())) {
+  					results.add(candidate);
+  				}
+  		}
+  		return results;
+  	}
+  	
+  	public static boolean remove(Product product) {
+  		return products.remove(product);
+  	}
+  	
+  	public static void add(Product product) {
+  		products.add(product);
+  	}
+  	
+}  	
